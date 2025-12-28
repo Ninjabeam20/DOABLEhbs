@@ -7,32 +7,45 @@ const API_BASE = '/api/todos';
 
 // Initialize DataTable
 $(document).ready(function() {
-  // Check if jQuery and DataTables are loaded
-  if (typeof $ === 'undefined' || typeof $.fn.DataTable === 'undefined') {
-    console.error('jQuery or DataTables not loaded!');
-    return;
-  }
-
-  // Initialize DataTable
-  dataTable = $('#todosTable').DataTable({
-    "paging": true,
-    "lengthChange": true,
-    "searching": true,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    "order": [[0, "desc"]], // Sort by ID descending (newest first)
-    "columnDefs": [
-      { "orderable": false, "targets": 5 } // Disable sorting on Actions column (now index 5)
-    ],
-    "language": {
-      "emptyTable": "No todos yet. Add one above!"
+  // Check authentication first
+  checkAuth(function(isAuthenticated, user) {
+    if (!isAuthenticated) {
+      return; // Already redirected to login
     }
-  });
 
-  // Load todos from database
-  loadTodos();
+    // Attach logout handler
+    $('#logoutBtn').on('click', function(e) {
+      e.preventDefault();
+      logout();
+    });
+
+    // Check if jQuery and DataTables are loaded
+    if (typeof $ === 'undefined' || typeof $.fn.DataTable === 'undefined') {
+      console.error('jQuery or DataTables not loaded!');
+      return;
+    }
+
+    // Initialize DataTable
+    dataTable = $('#todosTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "order": [[0, "desc"]], // Sort by ID descending (newest first)
+      "columnDefs": [
+        { "orderable": false, "targets": 5 } // Disable sorting on Actions column (now index 5)
+      ],
+      "language": {
+        "emptyTable": "No todos yet. Add one above!"
+      }
+    });
+
+    // Load todos from database
+    loadTodos();
+  });
 });
 
 // Load todos from database
@@ -48,6 +61,10 @@ function loadTodos() {
     error: function(xhr, status, error) {
       console.error('Error loading todos:', error);
       console.error('Response:', xhr.responseText);
+      if (xhr.status === 401) {
+        window.location.href = '/login.html';
+        return;
+      }
       if (xhr.status === 0) {
         showError('Cannot connect to server. Make sure the server is running on http://localhost:3000');
       } else {
@@ -96,6 +113,10 @@ $('#todoForm').on('submit', function(e) {
     error: function(xhr, status, error) {
       console.error('Error creating todo:', error);
       console.error('Response:', xhr.responseText);
+      if (xhr.status === 401) {
+        window.location.href = '/login.html';
+        return;
+      }
       const errorMsg = xhr.responseJSON?.error || error || 'Failed to create todo';
       showError('Failed to create todo: ' + errorMsg);
       
@@ -177,6 +198,10 @@ function attachDeleteHandlers() {
         error: function(xhr, status, error) {
           console.error('Error deleting todo:', error);
           console.error('Response:', xhr.responseText);
+          if (xhr.status === 401) {
+            window.location.href = '/login.html';
+            return;
+          }
           const errorMsg = xhr.responseJSON?.error || error || 'Failed to delete todo';
           showError('Failed to delete todo: ' + errorMsg);
           
@@ -219,6 +244,10 @@ function attachCompleteHandlers() {
       error: function(xhr, status, error) {
         console.error('Error updating todo completion:', error);
         console.error('Response:', xhr.responseText);
+        if (xhr.status === 401) {
+          window.location.href = '/login.html';
+          return;
+        }
         const errorMsg = xhr.responseJSON?.error || error || 'Failed to update todo';
         showError('Failed to update todo: ' + errorMsg);
         

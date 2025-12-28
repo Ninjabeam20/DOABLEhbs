@@ -7,33 +7,46 @@ const API_BASE = '/api/todos/deleted';
 
 // Initialize DataTable
 $(document).ready(function() {
-  // Check if jQuery and DataTables are loaded
-  if (typeof $ === 'undefined' || typeof $.fn.DataTable === 'undefined') {
-    console.error('jQuery or DataTables not loaded!');
-    return;
-  }
-
-  // Initialize DataTable with search enabled
-  dataTable = $('#deletedTodosTable').DataTable({
-    "paging": true,
-    "lengthChange": true,
-    "searching": true, // Enable search functionality
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "responsive": true,
-    "order": [[5, "desc"]], // Sort by Deleted At descending (most recently deleted first)
-    "columnDefs": [
-      { "orderable": true, "targets": [0, 1, 2, 3, 4, 5] } // All columns are sortable
-    ],
-    "language": {
-      "emptyTable": "No deleted todos found.",
-      "search": "Search deleted todos:"
+  // Check authentication first
+  checkAuth(function(isAuthenticated, user) {
+    if (!isAuthenticated) {
+      return; // Already redirected to login
     }
-  });
 
-  // Load deleted todos from database
-  loadDeletedTodos();
+    // Attach logout handler
+    $('#logoutBtn').on('click', function(e) {
+      e.preventDefault();
+      logout();
+    });
+
+    // Check if jQuery and DataTables are loaded
+    if (typeof $ === 'undefined' || typeof $.fn.DataTable === 'undefined') {
+      console.error('jQuery or DataTables not loaded!');
+      return;
+    }
+
+    // Initialize DataTable with search enabled
+    dataTable = $('#deletedTodosTable').DataTable({
+      "paging": true,
+      "lengthChange": true,
+      "searching": true, // Enable search functionality
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+      "order": [[5, "desc"]], // Sort by Deleted At descending (most recently deleted first)
+      "columnDefs": [
+        { "orderable": true, "targets": [0, 1, 2, 3, 4, 5] } // All columns are sortable
+      ],
+      "language": {
+        "emptyTable": "No deleted todos found.",
+        "search": "Search deleted todos:"
+      }
+    });
+
+    // Load deleted todos from database
+    loadDeletedTodos();
+  });
 });
 
 // Load deleted todos from database
@@ -49,6 +62,10 @@ function loadDeletedTodos() {
     error: function(xhr, status, error) {
       console.error('Error loading deleted todos:', error);
       console.error('Response:', xhr.responseText);
+      if (xhr.status === 401) {
+        window.location.href = '/login.html';
+        return;
+      }
       if (xhr.status === 0) {
         showError('Cannot connect to server. Make sure the server is running on http://localhost:3000');
       } else {

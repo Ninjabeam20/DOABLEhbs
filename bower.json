@@ -1,0 +1,25 @@
+{
+  "name": "doable",
+  "description": "A todo app built with Node.js, Express, MySQL, and AdminLTE",
+  "main": "server.js",
+  "authors": [],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "directory": "public/lib",
+  "dependencies": {
+    "admin-lte": "^3.2.0",
+    "bootstrap": "^5.3.0",
+    "jquery": "^3.7.0",
+    "datatables.net": "^1.13.6",
+    "moment": "^2.29.4",
+    "handlebars": "^4.7.8"
+  }
+}
+

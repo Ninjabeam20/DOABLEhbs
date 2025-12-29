@@ -1,0 +1,75 @@
+{{!< main}}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">My Todos</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <!-- Todo Entry Card -->
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-plus-circle"></i> Add New Todo</h3>
+      </div>
+        <div class="card-body">
+          <form id="todoForm">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="todoText">Todo Item</label>
+                  <input type="text" class="form-control" id="todoText" placeholder="Enter your todo..." required>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="todoPriority">Priority</label>
+                  <select class="form-control" id="todoPriority" required>
+                    <option value="low">Low</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="high">High</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Todo
+              </button>
+            </div>
+          </form>
+        </div>
+    </div>
+
+    <!-- Todos Display Card -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="fas fa-list"></i> My Todos</h3>
+      </div>
+      <div class="card-body">
+        <table id="todosTable" class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Todo</th>
+              <th>Priority</th>
+              <th>Completed</th>
+              <th>Created</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="todosTableBody">
+            <!-- Todos will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+

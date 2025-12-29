@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const crypto = require('crypto');
 const session = require('express-session');
+const exphbs = require('express-handlebars');
 require('dotenv').config();
 
 const app = express();
@@ -35,6 +36,15 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+// Configure Handlebars
+app.engine('hbs', exphbs.engine({
+    extname: '.hbs',
+    defaultLayout: false,
+    layoutsDir: path.join(__dirname, 'views/layouts')
+}));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -328,12 +338,27 @@ app.delete('/api/todos/:id', requireAuth, (req, res) => {
 
 // Serve index.html for root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.render('index', {
+        title: 'DOABLE - Todo App',
+        activeTodos: true,
+        scriptFiles: ['todo']
+    });
 });
 
 // Serve login.html for login route
 app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.render('login', {
+        title: 'Login - DOABLE'
+    });
+});
+
+// Serve delete.html for delete route
+app.get('/delete.html', (req, res) => {
+    res.render('delete', {
+        title: 'Deleted Todos - DOABLE',
+        activeDeleted: true,
+        scriptFiles: ['deleted']
+    });
 });
 
 // Start server

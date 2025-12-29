@@ -1,0 +1,86 @@
+{{!< login}}
+<div class="login-box">
+  <div class="login-card card card-outline card-primary">
+    <div class="card-header text-center">
+      <h1 class="h1"><b>DOABLE</b></h1>
+      <p class="login-box-msg">Todo App</p>
+    </div>
+    <div class="card-body">
+      <!-- Error/Success Messages -->
+      <div id="messageContainer"></div>
+
+      <!-- Login Form -->
+      <div id="loginFormContainer">
+        <form id="loginForm">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="loginUsername" placeholder="Username" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-sign-in-alt"></i> Sign In
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="form-toggle">
+          <a id="showSignupLink">Don't have an account? Sign up</a>
+        </p>
+      </div>
+
+      <!-- Signup Form -->
+      <div id="signupFormContainer" style="display: none;">
+        <form id="signupForm">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="signupUsername" placeholder="Username" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" id="signupPassword" placeholder="Password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" id="signupPasswordConfirm" placeholder="Confirm Password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-user-plus"></i> Sign Up
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="form-toggle">
+          <a id="showLoginLink">Already have an account? Log in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

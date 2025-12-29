@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DOABLE - Todo App</title>
+  <title>{{title}}</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -16,8 +16,8 @@
   <!-- AdminLTE -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2.0/dist/css/adminlte.min.css">
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="public/css/custom.css">
- </head>
+  <link rel="stylesheet" href="/public/css/custom.css">
+</head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -29,7 +29,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.html" class="nav-link">Home</a>
+        <a href="/" class="nav-link">Home</a>
       </li>
     </ul>
   </nav>
@@ -37,7 +37,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index.html" class="brand-link">
+    <a href="/" class="brand-link">
       <span class="brand-text font-weight-light">DOABLE</span>
     </a>
 
@@ -54,13 +54,13 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="index.html" class="nav-link active">
+            <a href="/" class="nav-link {{#if activeTodos}}active{{/if}}">
               <i class="nav-icon fas fa-tasks"></i>
               <p>My Todos</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="delete.html" class="nav-link">
+            <a href="/delete.html" class="nav-link {{#if activeDeleted}}active{{/if}}">
               <i class="nav-icon fas fa-trash"></i>
               <p>Deleted Todos</p>
             </a>
@@ -78,79 +78,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">My Todos</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Todo Entry Card -->
-        <div class="card card-primary">
-          <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-plus-circle"></i> Add New Todo</h3>
-          </div>
-          <div class="card-body">
-            <form id="todoForm">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="form-group">
-                    <label for="todoText">Todo Item</label>
-                    <input type="text" class="form-control" id="todoText" placeholder="Enter your todo..." required>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="todoPriority">Priority</label>
-                    <select class="form-control" id="todoPriority" required>
-                      <option value="low">Low</option>
-                      <option value="medium" selected>Medium</option>
-                      <option value="high">High</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-plus"></i> Add Todo
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        <!-- Todos Display Card -->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-list"></i> My Todos</h3>
-          </div>
-          <div class="card-body">
-            <table id="todosTable" class="table table-bordered table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Todo</th>
-                  <th>Priority</th>
-                  <th>Completed</th>
-                  <th>Created</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="todosTableBody">
-                <!-- Todos will be inserted here -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+    {{{body}}}
   </div>
 
   <!-- Footer -->
@@ -174,8 +102,12 @@
 <!-- Handlebars (optional, not used yet) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js"></script>
 <!-- Custom JS -->
-<script src="public/js/auth.js"></script>
-<script src="public/js/todo.js"></script>
+<script src="/public/js/auth.js"></script>
+{{#if scriptFiles}}
+{{#each scriptFiles}}
+<script src="/public/js/{{this}}.js"></script>
+{{/each}}
+{{/if}}
 
 </body>
 </html>

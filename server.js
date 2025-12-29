@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-require('dotenv').config();
+require('dotenv').config({ path: './config/.env' });
 
 // Import database connection
 const db = require('./config/database');
@@ -82,7 +82,10 @@ app.use('/api/todos', todoRoutes(todoViewModel));
 
 // Home page
 app.get('/', (req, res) => {
-    res.render('index');  // Just render index.hbs, don't pass layout options
+    if (!req.session.userId) {
+        return res.render('login');
+    }
+    res.render('index');
 });
 
 // Login page

@@ -20,9 +20,12 @@ class TodoModel {
   
     // Create a new todo
     createTodo(text, priority, userId, callback) {
-      const query = 'INSERT INTO todos (text, priority, user_id) VALUES (?, ?, ?)';
-      this.db.query(query, [text, priority, userId], callback);
-    }
+    const query = `
+      INSERT INTO todos (text, priority, completed, is_deleted, user_id)
+      VALUES (?, ?, 0, 0, ?)
+    `;
+    this.db.query(query, [text, priority, userId], callback);
+  }
   
     // Get a single todo by ID
     getTodoById(todoId, userId, callback) {

@@ -62,7 +62,7 @@ function loadTodos() {
       console.error('Error loading todos:', error);
       console.error('Response:', xhr.responseText);
       if (xhr.status === 401) {
-        window.location.href = '/login.html';
+        window.location.href = '/';
         return;
       }
       if (xhr.status === 0) {
@@ -114,7 +114,7 @@ $('#todoForm').on('submit', function(e) {
       console.error('Error creating todo:', error);
       console.error('Response:', xhr.responseText);
       if (xhr.status === 401) {
-        window.location.href = '/login.html';
+        window.location.href = '/';
         return;
       }
       const errorMsg = xhr.responseJSON?.error || error || 'Failed to create todo';
@@ -199,7 +199,7 @@ function attachDeleteHandlers() {
           console.error('Error deleting todo:', error);
           console.error('Response:', xhr.responseText);
           if (xhr.status === 401) {
-            window.location.href = '/login.html';
+            window.location.href = '/';
             return;
           }
           const errorMsg = xhr.responseJSON?.error || error || 'Failed to delete todo';
@@ -245,7 +245,7 @@ function attachCompleteHandlers() {
         console.error('Error updating todo completion:', error);
         console.error('Response:', xhr.responseText);
         if (xhr.status === 401) {
-          window.location.href = '/login.html';
+          window.location.href = '/';
           return;
         }
         const errorMsg = xhr.responseJSON?.error || error || 'Failed to update todo';

@@ -63,7 +63,7 @@ function loadDeletedTodos() {
       console.error('Error loading deleted todos:', error);
       console.error('Response:', xhr.responseText);
       if (xhr.status === 401) {
-        window.location.href = '/login.html';
+        window.location.href = '/';
         return;
       }
       if (xhr.status === 0) {

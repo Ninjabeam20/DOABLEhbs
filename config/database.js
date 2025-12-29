@@ -12,6 +12,8 @@ const dbConfig = {
     database: process.env.DB_NAME || 'doable_db'
 };
 
+console.log('DB HOST:', process.env.DB_HOST);
+
 // Log connection config (without password for security)
 console.log('Attempting to connect to MySQL:');
 console.log(`  Host: ${dbConfig.host}`);

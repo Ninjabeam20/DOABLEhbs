@@ -71,7 +71,7 @@ function login(username, password) {
     success: function(data) {
       showMessage('Login successful! Redirecting...', 'success');
       setTimeout(() => {
-        window.location.href = '/index.html';
+        window.location.href = '/';
       }, 500);
     },
     error: function(xhr) {
@@ -95,7 +95,7 @@ function signup(username, password) {
     success: function(data) {
       showMessage('Account created successfully! Logging you in...', 'success');
       setTimeout(() => {
-        window.location.href = '/index.html';
+        window.location.href = '/';
       }, 500);
     },
     error: function(xhr) {
@@ -156,7 +156,7 @@ function checkAuth(callback) {
     error: function(xhr) {
       if (callback) callback(false, null);
       if (xhr.status === 401) {
-        window.location.href = '/login.html';
+        window.location.href = '/';
       }
     }
   });
@@ -168,11 +168,11 @@ function logout() {
     url: '/api/auth/logout',
     method: 'POST',
     success: function() {
-      window.location.href = '/login.html';
+      window.location.href = '/';
     },
     error: function() {
       // Even if logout fails, redirect to login
-      window.location.href = '/login.html';
+      window.location.href = '/';
     }
   });
 }
